@@ -28,7 +28,7 @@ sentence-transformers>=3.0.0
 
 # Database Drivers
 pymysql>=1.1.0
-psycopg2-binary>=2.9.9F
+psycopg2-binary>=2.9.9
 pymongo>=4.10.0
 
 # Auth & Utilities
