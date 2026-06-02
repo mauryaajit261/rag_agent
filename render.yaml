@@ -1,0 +1,33 @@
+# Render Blueprint for the mySetu AI backend.
+# Non-secret config lives here; secrets are marked `sync: false` so Render
+# prompts for them in the dashboard and they are NEVER committed to git.
+services:
+  - type: web
+    name: mysetu-ai-backend
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      # ── Non-secret config ──
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: PINECONE_INDEX_NAME
+        value: mysetu-ai-prod
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      - key: DEBUG
+        value: "false"
+      # ── Secrets (enter values in the Render dashboard; not stored in git) ──
+      - key: GROQ_API_KEY
+        sync: false
+      - key: PINECONE_API_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
