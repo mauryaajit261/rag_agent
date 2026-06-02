@@ -13,6 +13,18 @@ import httpx
 router = APIRouter(prefix="/api/chat", tags=["chat"])
 
 
+# JWT Verification Dependency
+def get_current_user(authorization: str = Header(None)):
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Invalid or missing Authorization header")
+    token = authorization.split(" ")[1]
+
+    user = verify_jwt(token)
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid token or expired session")
+    return user
+
+
 @router.get("/image-token")
 async def get_image_token(user=Depends(get_current_user)):
     """
@@ -35,17 +47,6 @@ async def get_image_token(user=Depends(get_current_user)):
         }
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"Image API login failed: {e}")
-
-# JWT Verification Dependency
-def get_current_user(authorization: str = Header(None)):
-    if not authorization or not authorization.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="Invalid or missing Authorization header")
-    token = authorization.split(" ")[1]
-
-    user = verify_jwt(token)
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid token or expired session")
-    return user
 
 
 class NewChatRequest(BaseModel):
