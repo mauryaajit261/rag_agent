@@ -363,11 +363,23 @@ async def global_exception_handler(request, exc):
         ).model_dump()
     )
 
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(
+#         "app:app",
+#         host=settings.HOST,
+#         port=settings.PORT,
+#         reload=settings.DEBUG
+#     )
+
 if __name__ == "__main__":
+    import os
     import uvicorn
+
+    port = int(os.environ.get("PORT", 10000))
+
     uvicorn.run(
         "app:app",
-        host=settings.HOST,
-        port=settings.PORT,
-        reload=settings.DEBUG
+        host="0.0.0.0",
+        port=port
     )

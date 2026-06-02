@@ -10,8 +10,8 @@ from typing import List
 class Settings(BaseSettings):
     # Application
     APP_NAME: str = "mySetu AI"
-    APP_VERSION: str = "1.0.2"
-    DEBUG: bool = False  # Secure default; set DEBUG=true in .env for local development
+    APP_VERSION: str = "1.0.0"
+    DEBUG: bool = True
     
     # Server
     HOST: str = "127.0.0.1"
@@ -22,31 +22,21 @@ class Settings(BaseSettings):
     UPLOAD_DIR: Path = BASE_DIR / "uploads"
     
     # Supabase Authenticated Hybrid Vector Architecture
-    # Secrets are loaded from the environment / .env file — NEVER hardcode them here.
-    # The SERVICE_ROLE key bypasses Row Level Security: it is backend-only and must
-    # never reach the browser. Required (no default) so the app fails fast if unset.
-    SUPABASE_URL: str
-    SUPABASE_ANON_KEY: str
-    SUPABASE_SERVICE_ROLE_KEY: str
-
+    SUPABASE_URL: str = "https://cztvsucbkadtvoilqevs.supabase.co"
+    SUPABASE_ANON_KEY: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6dHZzdWNia2FkdHZvaWxxZXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwOTI1MzYsImV4cCI6MjA5MDY2ODUzNn0.kdndmHP9G03AcMNEGSn-V5Nxe7ZsFGJu3GiGoJLi6TU"
+    SUPABASE_SERVICE_ROLE_KEY: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6dHZzdWNia2FkdHZvaWxxZXZzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NTA5MjUzNiwiZXhwIjoyMDkwNjY4NTM2fQ.5vE0MLtWRb5aFaQCSJwTUO5nSOz70R6maheDcwKkgP0"
+    
     # Pinecone Configuration
-    # API key loaded from the environment / .env file — never hardcode it here.
-    PINECONE_API_KEY: str
+    PINECONE_API_KEY: str = "pcsk_6ur7kT_AZfvJEWJsMAohRzHpKLWUh6X5kSqsXJMPp3gTYGWVTjKEborebNbPEqK2cSAMHJ"
     PINECONE_ENVIRONMENT: str = "us-east-1"  # Will be auto-detected
     PINECONE_INDEX_NAME: str = "mysetu-ai"
     PINECONE_DIMENSION: int = 768  # nomic-embed-text dimension
     
     # LLM Configuration
     OLLAMA_BASE_URL: str = "http://127.0.0.1:11434"
-    # llama3.2:3b follows grounding instructions far more reliably than 1b (much less
-    # hallucination). Pull it first: `ollama pull llama3.2:3b`. Override via .env if needed.
-    OLLAMA_MODEL: str = "llama3.2:3b"
+    OLLAMA_MODEL: str = "llama3.2:1b"
     EMBEDDING_MODEL: str = "nomic-embed-text"
     OLLAMA_NUM_THREAD: int = 4        # Optimized for common 4-core+ machines
-    OLLAMA_NUM_CTX: int = 4096        # Must fit prompt + all retrieved chunks (2048 truncated them)
-    OLLAMA_NUM_PREDICT: int = 1024    # Cap answer length — prevents slow runaway generation
-    OLLAMA_KEEP_ALIVE: int = 1800     # Seconds to keep models warm in memory (30m) — faster
-    OLLAMA_TEMPERATURE: float = 0.1   # Low temperature for factual precision
     
     # RAG Configuration — Precision-tuned for 90%+ confidence
     CHUNK_SIZE: int = 1000           # Parent doc context size (what the LLM gets)
