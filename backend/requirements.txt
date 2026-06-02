@@ -20,7 +20,8 @@ langchain-experimental>=0.3.0
 
 # Vector Store - Pinecone
 pinecone-client>=5.0.0
-langchain-pinecone>=0.2.0
+# langchain-pinecone>=0.2.0
+langchain-pinecone==0.0.1
 
 # HuggingFace & Machine Learning
 flashrank>=0.2.8
