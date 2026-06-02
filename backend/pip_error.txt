@@ -1,0 +1,2 @@
+ERROR: Cannot install -r requirements.txt (line 14), -r requirements.txt (line 16), -r requirements.txt (line 17), -r requirements.txt (line 18), langchain, langchain-classic==1.0.1 and langchain-core because these package versions have conflicting dependencies.
+ERROR: ResolutionImpossible: for help visit https://pip.pypa.io/en/latest/topics/dependency-resolution/#dealing-with-dependency-conflicts

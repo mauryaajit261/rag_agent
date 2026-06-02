@@ -1,0 +1,12 @@
+INFO:flashrank.Ranker:Downloading ms-marco-MiniLM-L-6-v2...
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\mySet\OneDrive - SNPL\Desktop\rag_agent\backend\venv\Lib\site-packages\flashrank\Ranker.py", line 53, in __init__
+    self._prepare_model_dir(model_name)
+  File "C:\Users\mySet\OneDrive - SNPL\Desktop\rag_agent\backend\venv\Lib\site-packages\flashrank\Ranker.py", line 83, in _prepare_model_dir
+    self._download_model_files(model_name)
+  File "C:\Users\mySet\OneDrive - SNPL\Desktop\rag_agent\backend\venv\Lib\site-packages\flashrank\Ranker.py", line 95, in _download_model_files
+    r.raise_for_status()
+  File "C:\Users\mySet\OneDrive - SNPL\Desktop\rag_agent\backend\venv\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/prithivida/flashrank/resolve/main/ms-marco-MiniLM-L-6-v2.zip

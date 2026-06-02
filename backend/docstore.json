@@ -1,0 +1,178 @@
+{
+  "ba5d5e04-a9d1-491e-bb54-345be2d89571": {
+    "page_content": "Title: python knowledge.pdf\nCategory: general\n\n[page 1]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \no \n\uf0b7 \no \no \no \no \n\uf0b7 \no \no \n\uf0b7 \no \no \n\n[page 2]\n \no \n\uf0b7 \no \n\uf0b7 \no \n\uf0b7 \no \no \no \n\uf0b7 \no \no \n\uf0a7 \n\uf0a7 \n\uf0a7 \n\uf0a7 \n\uf0a7 \n\uf0a7 \n\uf0a7 \no \n\uf0b7 \no \n\uf0b7 \no \no \n\uf0b7 \no \n\uf0a7 \n\uf0a7 \n\uf0b7 \no \n\n[page 3]\n \n\uf0a7 \no \n\uf0a7 \n\uf0b7 \no \no \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \no \n\uf0a7 \n\uf0a7 \n\uf0a7 \no \no \n\uf0a7 \n\uf0a7 \n\uf0a7 \nprint(\"hello world from python\") \n\n[page 4]\n \no \no \n\uf0b7 \no \no \no \no \no \n\uf0a7 \n\uf0a7 \n\uf0a7 \n\uf0b7 \no \no \no \no \n. a = 5 \n. print(\"the type of a\", type(a)) \n. \n. b = 40.5 \n. print(\"the type of b\", type(b)) \n. \n. c = 1+3j \n. print(\"the type of c\", type(c)) \n. print(\" c is a complex number\", isinstance(1+3j,complex)) \nthe type of a <class 'int'> \nthe type of b <class 'float'> \nthe type of c <class 'complex'> \nc is complex number: true \n. # python program to check the boolean type \n. print(type(true)) \n. print(type(false)) \n. print(false)",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "f9ee91da-606b-4340-afd7-231da716545c": {
+    "page_content": "[page 5]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \no \no \no \n\uf0b7 \no \no \no \no \no \n\uf0b7 \n\u0ab0\u0abe\u0a9c\u0a95\u0acb\u0a9f\u201d \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n<class 'bool'> \n<class 'bool'> \nnameerror: name 'false' is not defined \n x = \" d a r s h a n \" \n index = 0 1 2 3 4 5 6 \nreverse index = 0 -6 -5 -4 -3 -2 -1 \n\n[page 6]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \nx = 'our string' \nsubx1 = x[startindex] \nsubx2 = x[startindex:endindex] \nsubx3 = x[startindex:endindex:steps] \nx = 'darshan institute of engineering and technology, rajkot, \ngujarat, india' \nsubx1 = x[0:7] \nsubx2 = x[49:55] \nsubx3 = x[66:] \nsubx4 = x[::2] \nsubx5 = x[::-1] \nprint(subx1) \nprint(subx2) \nprint(subx3) \nprint(subx4) \nprint(subx5) \ndarshan \nrajkot \nindia \ndrhnisiueo niern n ehooy akt uaa,ida \naidni ,tarajug ,tokjar ,ygolonhcet dna gnireenigne fo etutitsni nahsrad",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "61a010fe-1e11-4c4b-ba4e-e23d318626af": {
+    "page_content": "[page 7]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \nx = \"darshan\" \nprint(len(x)) \n \nx = \"darshan\" \nca = x.count('a') \nprint(ca) \n \nx = \"darshan institute, rajkot\" \nc = x.title() \nl = x.lower() \nu = x.upper() \nprint(c) \nprint(l) \nprint(u) \ndarshan institute, rajkot \ndarshan institute, rajkot \ndarshan institute, rajkot \nx = 'darshan institute, rajkot' \nc = x.istitle() \nl = x.islower() \nu = x.isupper() \nprint(c) \nprint(l) \nprint(u) \nfalse \ntrue \nfalse \n\n[page 8]\n \n\uf0b7 \no \no \no \n\uf0b7 \no \no \no \nx = 'darshan institute, rajkot, india' \nf = x.find('in') \nprint(f) \n8 (index of \u2018in\u2019 in x) \nx = 'darshan institute, rajkot, india' \nr = x.rfind('in') \nprint(r) \n27 (last index of \u2018in\u2019 in x) \nx = 'darshan institute, rajkot, india' \nr = x.replace('india','india') \nprint(r) \ndarshan institute, rajkot, india \nx = 'darshan institute, rajkot, india' \nf = x.index('in') \nprint(f) \n8 (index of \u2018in\u2019 in x) \nx = 'darshan institute, rajkot, india' \nr = x.rindex('in') \nprint(r) \n27 (last index of \u2018in\u2019 in x)",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "5b965d92-5d3d-4e60-b0b4-82d8995c92f0": {
+    "page_content": "[page 9]\n \n\uf0b7 \no \no \no \no \n\uf0b7 \no \no \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \nx = 'darshan123' \nf = x.isalnum() \nprint(f) \ntrue \nx = '{0} institute, rajkot, india' \nr = x.format('darshan') \nprint(r) \n \ndarshan institute, rajkot, india \nx = '{0} institute, {1}, {2}' \nr = x.format('darshan', 'rajkot', 'india') \nprint(r) \n \ndarshan institute, rajkot, india \n\n[page 10]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \nx = '{0} institute, {1}, {2}, welcome to {0}' \nr = x.format('darshan', 'rajkot', 'india') \nprint(r) \n \ndarshan institute, rajkot, india, welcome to darshan \nx = '{{{0}}} institute' \nr = x.format('darshan') \nprint(r) \nx = 'the price for {0} is \u20b9{1}' \nr = x.format('iphone',50000) \nprint(r) \nthe price for iphone is \u20b950000 \ns = '{0} institute of engineering' \nprint(s.format('darshan')) #default formatting \ndarshan institute of engineering",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "55f64e8c-3825-4216-82bc-82c69cab401b": {
+    "page_content": "[page 11]\n \n\uf0b7 \ns = '{0:25} institute of engineering' \nprint(s.format('darshan')) #minimum width \ndarshan institute of engineering \ns = '{0:>25} institute of engineering' \nprint(s.format('darshan')) #right align, minimum width \n darshan institute of engineering \ns = '{0:^25} institute of engineering' \nprint(s.format('darshan')) #center align, minimum width \n darshan institute of engineering \ns = '{0:-^25} institute of engineering' \nprint(s.format('darshan')) #fill center align, minimum width \n---darshan--- institute of engineering \ns = '{0:.3} institute of engineering' #maximum width of 3 \nprint(s.format('darshan')) \ndar institute of engineering \ns = 'amount = {0}' # default formatting \nprint(s.format(123456)) \n123456 \ns1 = 'amount = {0:0=10}' # 0 fill, minimum width 12 (technique 1) \nprint(s1.format(123456)) \n \ns2 = 'amount = {0:010}' # 0 pad, minimum width 12 (technique 2) \nprint(s2.format(123456))",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "15e42d1f-5546-4c10-b7b4-e60ba725d30e": {
+    "page_content": "[page 12]\n \n\uf0b7 \namount = 0000123456 \namount = 0000123456 \ns = 'amount = {0: }' # space or - sign \nprint(s.format(123456)) \nprint(s.format(-123456)) \n\u2018 123456\u2019 \n\u2018-123456\u2019 \ns = 'amount = {0:+}' # force sign \nprint(s.format(123456)) \nprint(s.format(-123456)) \n+123456 \n-123456 \ns1 = '{0:b} {0:o} {0:x} {0:x}' \ns1 = '{0:#b} {0:#o} {0:#x} {0:#x}' \nprint(s1.format(12)) \nprint(s2.format(12)) \n1100 14 c c \n0b1100 0o14 0xc 0xc \ns = 'amount = {0}' # default formatting \nprint(s.format(12.3456789)) \n12.3456789 \ns1 = 'amount = {0:10.2e}' # exponential formatting with two precession \ns2 = 'amount = {0:10.2f}' # floating formatting with two precession \nprint(s1.format(12345.6789)) \nprint(s2.format(12345.6789)) \namount = 1.23e+04 \namount = 12345.68 \n\n[page 13]\n \n\uf0b7 \n\uf0b7 \no \no \no \no \no \no \no \n\uf0b7 \n\n[page 14]\n \n \n \n \n\uf0b7",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "3f034313-0ccc-4666-92e8-6f82d00a425b": {
+    "page_content": "[page 13]\n \n\uf0b7 \n\uf0b7 \no \no \no \no \no \no \no \n\uf0b7 \n\n[page 14]\n \n \n \n \n\uf0b7 \n\n[page 15]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \nif some_condition : \n # code to execute when condition is true \nx = 10 \n \nif x > 5 : \n print(\"x is greater than 5\") \nx is greater than 5 \nx = 3 \n \nif x > 5 : \n print(\"x is greater than 5\") \nelse : \n print(\"x is less than 5\") \nx is less than 5 \n\n[page 16]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \no \no \n\uf0b7 \n\uf0b7 \no \no \no \n\uf0b7 \n\uf0b7 \nx = 10 \n \nif x > 12 : \n print(\"x is greater than 12\") \nelif x > 5 : \n print(\"x is greater than 5\") \nelse : \n print(\"x is less than 5\") \nx is greater than 5 \nwhile some_condition : \n # code to execute in loop \nx = 0 \nwhile x < 3 : \n print(x) \n x += 1 # x++ is invalid in python",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "5a9b2770-5613-44c8-b38f-3521eede829f": {
+    "page_content": "[page 17]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n1 \nx = 5 \nwhile x < 3 : \n print(x) \n x += 1 # x++ is invalid in python \nelse : \n print(\"x is greater than 3\") \nx is greater than 3 \nfor temp_item in iterable_object : \n # code to execute for each object in iterable \nmy_list = [1, 2, 3, 4] \nfor list_item in my_list : \n print(list_item) \n2 \n4 \nmy_list = range(0,5) \nfor list_item in my_list : \n print(list_item) \n\n[page 18]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n1 \n3 \nmy_list = [\"darshan\",\"institute\",\"rajkot\",\"gujarat\"] \nfor list_item in my_list : \n print(list_item) \ndarshan \ninstitute \nrajkot \ngujarat \nfor temp in range(5) : \n if temp == 2 : \n break \n print(temp) \n1 \nfor temp in range(5) : \n if temp == 2 : \n continue \n print(temp) \n1 \n4 \nfor temp in range(5) : \n pass",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "2996ab76-72ad-4986-bbec-38d44e4e6d1f": {
+    "page_content": "[page 19]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \ndef function_name(arguments) : \n ''' docstring ''' #optional \n #code to execute when function is called \ndef seperator() : \n print('==============================') \n \nprint(\"hello world\") \nseperator() \nprint(\"from darshan college\") \nseperator() \nprint(\"rajkot\") \nhello world \n============================== \nfrom darshan college \n============================== \nrajkot",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "98a5318b-6a5d-41e7-8f2d-31753634e396": {
+    "page_content": "[page 20]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \ndef seperator(type) : \n if(type=='=') : \n print('==============================') \n elif(type=='*') : \n print('******************************') \n else : \n print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&') \n \nprint(\"hello world\") \nseperator('=') \nprint(\"from darshan college\") \nseperator('*') \nprint(\"rajkot\") \nhello world \n============================== \nfrom darshan college \n****************************** \nrajkot \ndef setname(name) : \n name[0] = \"arjun bala\" \n \nname = [\"default\"] \nsetname(name) \nprint(name) \n['arjun bala'] \ndef collegedetails(collegename, state) : \n print(collegename + \" is located in \"+ state) \n \ncollegedetails(state='gujarat', collegename='darshan') \ndarshan is located in gujarat",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "c0ca839e-3d64-47f9-84a2-11441309a8bb": {
+    "page_content": "[page 21]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \ndef collegedetails(collegename, state='gujarat') : \n print(collegename + \" is located in \"+ state) \n \ncollegedetails(collegename='darshan') \ndarshan is located in gujarat \ndef collegelist(*colleges): \n print(colleges[0]) \n # we can also loop through all the arguments \n # for c in colleges : \n # print(c) \n \ncollegelist('darshan','nirma','vvp') \ndarshan \ndef collegedetail(**college) : \n print('college name is '+college['name']) \n \ncollegedetail(city='rajkot', state='gujarat', name='darshan') \ncollege name is darshan \n\n[page 22]\n \n\uf0b7 \n\uf0b7 \no \no \no \no \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \ndef addition(n1,n2): \n return n1 + n2 \n \nans = addition(10,5) \nprint(ans) \nmy_list = ['darshan', 'institute', 'rkot'] \nprint(my_list[1]) \nprint(len(my_list)) \nmy_list[2] = \"rajkot\" \nprint(my_list) \nprint(my_list[-1]) \ninstitute (list index starts with 0) \n3 (length of the list) \n['darshan', 'institute', 'rajkot'] (note : spelling of rajkot is updated) \nrajkot (-1 represent last element)",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "4ef045ae-554a-45eb-80f8-f11e2cf97587": {
+    "page_content": "[page 23]\n \n\uf0b7 \n\uf0b7 \no \no \no \no \nmy_list = ['darshan', 'institute', 'rajkot','gujarat','india'] \nprint(my_list[1:3]) \n['institute', 'rajkot'] (note: end index is not included) \nmy_list = ['darshan', 'institute', 'rajkot'] \nmy_list.append('gujarat') \nprint(my_list) \n['darshan', 'institute', 'rajkot', 'gujarat'] \nmy_list = ['darshan', 'institute', 'rajkot'] \nmy_list.insert(2,'of') \nmy_list.insert(3,'engineering') \nprint(my_list) \n['darshan', 'institute', 'of', 'engineering', 'rajkot'] \nmy_list1 = ['darshan', 'institute'] \nmy_list2 = ['rajkot','gujarat'] \nmy_list1.extend(my_list2) \nprint(my_list1) \n['darshan', 'institute', \u2018rajkot', \u2018gujarat']",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "38c3bc15-8bcc-448d-a0d4-2e39f158c435": {
+    "page_content": "[page 24]\n \no \no \no \no \nmy_list = ['darshan', 'institute','rajkot'] \ntemp = my_list.pop() \nprint(temp) \nprint(my_list) \nrajkot \n['darshan', 'institute'] \nmy_list = ['darshan', 'institute', 'darshan','rajkot'] \nmy_list.remove('darshan') \nprint(my_list) \n['institute', 'darshan', 'rajkot'] \nmy_list = ['darshan', 'institute', 'darshan','rajkot'] \nmy_list.clear() \nprint(my_list) \n[] (empty list) \nmy_list = ['darshan', 'institute', 'darshan','rajkot'] \nid = my_list.index('institute') \nprint(id) \n[page 25]\n \no \no \n\uf0b7 \n\uf0b7 \n\uf0b7 \no \no \n\uf0b7 \nmy_list = ['darshan', 'institute', 'darshan','rajkot'] \nc = my_list.count('darshan') \nprint(c) \nmy_list = ['darshan', 'institute','rajkot'] \nmy_list.reverse() \nprint(my_list) \n['rajkot', \u2018institute','darshan'] \nmy_list = ['darshan', 'college','of','enginnering','rajkot'] \nmy_list.sort() \nprint(my_list) \nmy_list.sort(reverse=true) \nprint(my_list) \n['college', 'darshan', 'enginnering', 'of', 'rajkot'] \n['rajkot', 'of', 'enginnering', 'darshan', 'college']",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "d4c486ff-1175-43f2-841c-9a99bc4df963": {
+    "page_content": "print(my_list) \n['college', 'darshan', 'enginnering', 'of', 'rajkot'] \n['rajkot', 'of', 'enginnering', 'darshan', 'college'] \nmy_set = {1,1,1,2,2,5,3,9} \nprint(my_set)",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "eed19668-6b08-4c18-ba8a-384100074641": {
+    "page_content": "[page 26]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \no \no \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n{1, 2, 3, 5, 9} \nmy_tuple = ('darshan','institute','of','engineering','of') \nprint(my_tuple) \nprint(my_tuple.index('engineering')) \nprint(my_tuple.count('of')) \nprint(my_tuple[-1]) \n('darshan', 'institute', 'of', 'engineering', 'of') \n2 \nof \nmy_dict = { 'key1':'value1', 'key2':'value2' } \n\n[page 27]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \nmy_dict = {'college':\"darshan\", 'city':\"rajkot\",'type':\"enginee\nring\"} \nprint(my_dict['college']) \nprint(my_dict.get('city')) \ndarshan \nrajkot \nmy_dict = {'college':\"darshan\", \n'city':\"rajkot\", \n'type':\"engineering\"} \nprint(my_dict.keys()) \n['college', 'city', 'type'] \nmy_dict = {'college':\"darshan\", \n'city':\"rajkot\", \n'type':\"engineering\"} \nprint(my_dict.values()) \n['darshan', 'rajkot', 'engineering'] \nmy_dict = {'college':\"darshan\", \n'city':\"rajkot\", \n'type':\"engineering\"} \nprint(my_dict.items())",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  },
+  "d362d920-5808-49ef-8051-08cbeb6894eb": {
+    "page_content": "[page 28]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n\uf0b7 \n[('college', 'darshan'), ('city', 'rajkot'), ('type', 'engineering')] \nmystr = 'darshan' \nmylist = [] \nfor c in mystr: \n mylist.append(c) \n \nprint(mylist) \n['d', 'a', 'r', 's', 'h', 'a', 'n'] \n[ expression for item in iterable ] \nor \n[ expression for item in iterable if condition ] \nmylist = [c for c in 'darshan'] \nprint(mylist) \n['d', 'a', 'r', 's', 'h', 'a', 'n'] \n# list of square from 1 to 10 \nmylist = [] \nfor i in range(1,11): \n mylist.append(i**2) \n \nprint(mylist) \n\n[page 29]\n \n\uf0b7 \n\uf0b7 \n\uf0b7 \n[1, 4, 9, 16, 25, 36, 49, 64, 81, 100] \n# list of square from 1 to 10 \nmylist = [ i**2 for i in range(1,11) ] \nprint(mylist) \n[1, 4, 9, 16, 25, 36, 49, 64, 81, 100] \nleapyears = [i for i in range(1980,2021) if i%4==0] \nprint(leapyears) \n[1980, 1984, 1988, 1992, 1996, 2000, 2004, 2008, 2012, 2016, 2020]",
+    "metadata": {
+      "document_id": "46cb7682-1775-458c-86bc-3eeff6478de3",
+      "filename": "python knowledge.pdf",
+      "file_type": "pdf",
+      "source": "document",
+      "category": "general",
+      "ingested_at": "2026-04-03T09:58:56.074292"
+    }
+  }
+}

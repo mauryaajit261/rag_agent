@@ -1,0 +1,101 @@
+version: '3.9'
+
+services:
+  # Main FastAPI Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mysetu-ai
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=mySetu AI
+      - APP_VERSION=1.0.0
+      - DEBUG=false
+      - HOST=0.0.0.0
+      - PORT=8000
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_MODEL=llama3
+      - EMBEDDING_MODEL=nomic-embed-text
+      - CHUNK_SIZE=1000
+      - CHUNK_OVERLAP=200
+      - TOP_K_RETRIEVAL=5
+      - SIMILARITY_THRESHOLD=0.7
+      - MAX_FILE_SIZE_MB=50
+      - DB_CONNECTION_TIMEOUT=30
+      - DB_MAX_ROWS_PER_QUERY=1000
+      - SECRET_KEY=${SECRET_KEY:-change-this-in-production-to-a-secure-random-key}
+      - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173,http://frontend:3000
+      - STRICT_CONTEXT_MODE=true
+      - NO_ANSWER_RESPONSE=The requested information is not available in the uploaded documents or connected database.
+      - PINECONE_API_KEY=${PINECONE_API_KEY}
+      - PINECONE_INDEX_NAME=${PINECONE_INDEX_NAME}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+    env_file:
+      - .env
+    volumes:
+      - ./uploads:/app/uploads
+      - ./cache:/app/.cache
+    depends_on:
+      - ollama
+    networks:
+      - mysetu-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Ollama LLM Service
+  ollama:
+    image: ollama/ollama:latest
+    container_name: mysetu-ollama
+    ports:
+      - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - mysetu-network
+    restart: unless-stopped
+    # Uncomment for GPU support (NVIDIA)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  # Optional: PostgreSQL Database (for chat history/metadata)
+  postgres:
+    image: postgres:15-alpine
+    container_name: mysetu-postgres
+    environment:
+      - POSTGRES_DB=mysetu_db
+      - POSTGRES_USER=mysetu_user
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-mysetu_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./supabase_schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    networks:
+      - mysetu-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mysetu_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  ollama_data:
+  postgres_data:
+
+networks:
+  mysetu-network:
+    driver: bridge

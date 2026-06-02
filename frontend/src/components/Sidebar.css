@@ -1,0 +1,110 @@
+/* Sidebar - Minimal SaaS Yellow */
+.sidebar {
+    width: 220px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFF9E6 100%);
+    border-right: 1px solid var(--saas-gray-light);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.02);
+    transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Collapsed → fully hidden, frees the full width for the content area.
+   The header ☰ button brings it back. */
+.sidebar.collapsed {
+    width: 0;
+    border-right-color: transparent;
+    box-shadow: none;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+    gap: 6px;
+    flex: 1;
+    z-index: 1;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--saas-gray);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-item:hover {
+    background: rgba(250, 204, 21, 0.08); /* light yellow tint */
+    color: #111827;
+    transform: translateX(2px);
+}
+
+.nav-item.active {
+    background: rgba(250, 204, 21, 0.15); /* deeper yellow tint */
+    color: #111827;
+    border-color: transparent;
+    box-shadow: inset 3px 0 0 var(--saas-yellow), 0 2px 4px rgba(250, 204, 21, 0.05); /* left yellow border */
+}
+
+.nav-icon {
+    font-size: 1.35rem;
+    line-height: 1;
+    transition: all 0.2s ease;
+    filter: none; /* remove glow */
+}
+
+.nav-item:hover .nav-icon,
+.nav-item.active .nav-icon {
+    transform: scale(1.05);
+}
+
+.nav-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nav-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1;
+}
+
+.nav-subtitle {
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: #9CA3AF;
+    line-height: 1;
+}
+
+/* Footer */
+.sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--saas-gray-light);
+    text-align: left;
+    z-index: 1;
+}
+
+.version {
+    font-size: 0.65rem;
+    color: #9CA3AF;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}

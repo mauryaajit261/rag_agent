@@ -1,0 +1,62 @@
+/* App Layout */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-bg-page);
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Collapse handle pinned to the right edge of the left sidebar.
+   It lives in .app-body (not inside .sidebar) so it stays visible and
+   clickable even when the sidebar is fully collapsed. */
+.sidebar-collapse-toggle {
+  position: absolute;
+  top: 16px;
+  left: 207px;                 /* sits on the 220px sidebar's right border */
+  z-index: 60;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  line-height: 1;
+  color: var(--color-text-secondary);
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.2s ease, color 0.2s ease,
+              border-color 0.2s ease, transform 0.15s ease;
+}
+.sidebar-collapse-toggle:hover {
+  background: var(--saas-yellow-tint);
+  border-color: var(--saas-yellow);
+  color: var(--color-text-primary);
+  transform: scale(1.1);
+}
+.sidebar-collapse-toggle:active { transform: scale(0.94); }
+
+/* When the sidebar is collapsed, the handle parks at the far-left edge */
+.sidebar-collapse-toggle.collapsed { left: 10px; }
+
+.main-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-secondary);
+  border-radius: 16px 0 0 0;
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+}

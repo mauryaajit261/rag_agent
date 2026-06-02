@@ -1,0 +1,22 @@
+{
+  "666926f8-9a4a-4635-92a9-3c401eb67fc1": {
+    "id": "666926f8-9a4a-4635-92a9-3c401eb67fc1",
+    "filename": "successful-time-management.pdf",
+    "file_type": "pdf",
+    "file_size": 2441187,
+    "upload_date": "2026-04-06T09:52:24.492269",
+    "status": "completed",
+    "chunk_count": 149,
+    "error_message": null
+  },
+  "49c68074-9e14-4cda-bdbe-574c7e96728b": {
+    "id": "49c68074-9e14-4cda-bdbe-574c7e96728b",
+    "filename": "Comprehensive Operational Guide_ mySetu Audit & Inspection System.pdf",
+    "file_type": "pdf",
+    "file_size": 131870,
+    "upload_date": "2026-04-09T15:04:46.493501",
+    "status": "completed",
+    "chunk_count": 5,
+    "error_message": null
+  }
+}
