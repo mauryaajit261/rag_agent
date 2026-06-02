@@ -22,21 +22,26 @@ class Settings(BaseSettings):
     UPLOAD_DIR: Path = BASE_DIR / "uploads"
     
     # Supabase Authenticated Hybrid Vector Architecture
-    SUPABASE_URL: str = "https://cztvsucbkadtvoilqevs.supabase.co"
-    SUPABASE_ANON_KEY: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6dHZzdWNia2FkdHZvaWxxZXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwOTI1MzYsImV4cCI6MjA5MDY2ODUzNn0.kdndmHP9G03AcMNEGSn-V5Nxe7ZsFGJu3GiGoJLi6TU"
-    SUPABASE_SERVICE_ROLE_KEY: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6dHZzdWNia2FkdHZvaWxxZXZzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NTA5MjUzNiwiZXhwIjoyMDkwNjY4NTM2fQ.5vE0MLtWRb5aFaQCSJwTUO5nSOz70R6maheDcwKkgP0"
-    
+    # Secrets are loaded from the environment / .env file — NEVER hardcode them here
+    # (GitHub push protection will block commits that contain them).
+    SUPABASE_URL: str
+    SUPABASE_ANON_KEY: str
+    SUPABASE_SERVICE_ROLE_KEY: str   # CRITICAL: bypasses RLS. Backend-only. Never expose.
+
     # Pinecone Configuration
-    PINECONE_API_KEY: str = "pcsk_6ur7kT_AZfvJEWJsMAohRzHpKLWUh6X5kSqsXJMPp3gTYGWVTjKEborebNbPEqK2cSAMHJ"
+    PINECONE_API_KEY: str                       # loaded from .env
     PINECONE_ENVIRONMENT: str = "us-east-1"  # Will be auto-detected
-    PINECONE_INDEX_NAME: str = "mysetu-ai"
-    PINECONE_DIMENSION: int = 768  # nomic-embed-text dimension
-    
-    # LLM Configuration
-    OLLAMA_BASE_URL: str = "http://127.0.0.1:11434"
-    OLLAMA_MODEL: str = "llama3.2:1b"
-    EMBEDDING_MODEL: str = "nomic-embed-text"
-    OLLAMA_NUM_THREAD: int = 4        # Optimized for common 4-core+ machines
+    PINECONE_INDEX_NAME: str = "mysetu-ai-hf"   # new index for the 384-dim HF embeddings
+    PINECONE_DIMENSION: int = 384               # BAAI/bge-small-en-v1.5 dimension
+
+    # LLM Configuration — Groq (cloud inference, replaces Ollama for generation)
+    GROQ_API_KEY: str                            # loaded from .env — never hardcode
+    GROQ_MODEL: str = "llama-3.3-70b-versatile"  # fast + strong grounding; or llama-3.1-8b-instant
+    GROQ_TEMPERATURE: float = 0.1                # low = factual/precise
+    GROQ_MAX_TOKENS: int = 1024                  # cap answer length
+
+    # Embeddings — local HuggingFace sentence-transformers (replaces Ollama nomic-embed-text)
+    EMBEDDING_MODEL: str = "BAAI/bge-small-en-v1.5"  # 384-dim, light, strong retrieval
     
     # RAG Configuration — Precision-tuned for 90%+ confidence
     CHUNK_SIZE: int = 1000           # Parent doc context size (what the LLM gets)
@@ -78,6 +83,7 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
+        extra = "ignore"  # tolerate unknown keys in .env instead of crashing on startup
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

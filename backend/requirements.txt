@@ -14,18 +14,21 @@ openpyxl>=3.1.0
 # LangChain & RAG
 langchain>=0.3.0
 langchain-community>=0.3.0
-langchain-ollama>=0.2.0
 langchain-core>=0.3.0
 langchain-experimental>=0.3.0
 
+# LLM - Groq (cloud inference, replaces Ollama)
+groq>=0.11.0
+langchain-groq>=0.2.0
+
 # Vector Store - Pinecone
-# pinecone-client>=5.0.0
-# langchain-pinecone>=0.2.0
-#langchain-pinecone==0.0.1
-pinecone
-# HuggingFace & Machine Learning
+pinecone-client>=5.0.0
+langchain-pinecone>=0.2.0
+
+# HuggingFace & Machine Learning (local embeddings + reranker)
 flashrank>=0.2.8
 sentence-transformers>=3.0.0
+langchain-huggingface>=0.1.0
 
 # Database Drivers
 pymysql>=1.1.0

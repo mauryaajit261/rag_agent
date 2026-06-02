@@ -16,7 +16,7 @@ import fitz  # PyMuPDF
 from docx import Document
 import pandas as pd
 
-from langchain_ollama import OllamaEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.documents import Document as LangChainDocument
 
 from chunker import SmartSemanticChunker
@@ -62,12 +62,11 @@ class DocumentProcessor:
         return sections
 
     def __init__(self):
-        # Embeddings — keep_alive keeps the embed model warm so each query's
-        # embedding call doesn't pay a cold-load penalty (faster retrieval).
-        self.embeddings = OllamaEmbeddings(
-            base_url=settings.OLLAMA_BASE_URL,
-            model=settings.EMBEDDING_MODEL,
-            keep_alive=settings.OLLAMA_KEEP_ALIVE,
+        # Embeddings — local HuggingFace sentence-transformers (no Ollama, no API key).
+        # normalize_embeddings=True is recommended for BGE models with cosine similarity.
+        self.embeddings = HuggingFaceEmbeddings(
+            model_name=settings.EMBEDDING_MODEL,
+            encode_kwargs={"normalize_embeddings": True},
         )
 
         # Document metadata

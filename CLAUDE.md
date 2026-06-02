@@ -67,8 +67,9 @@ It is branded as **"Setu-Bot"** in prompts and **"mySetu AI / Knowledge Assistan
 |---|---|
 | Web framework | FastAPI + Uvicorn |
 | Config | `pydantic-settings` (`config.py`, single `settings` instance) |
-| LLM + embeddings | Ollama (`llama3.2:3b` generation — pull it; `nomic-embed-text` 768-dim embeddings) via `langchain-ollama` |
-| Vector store | Pinecone serverless (`langchain-pinecone`), index `mysetu-ai`, cosine, 768 dims |
+| LLM (generation) | **Groq** cloud inference (`llama-3.3-70b-versatile`) via `langchain-groq` — replaced Ollama |
+| Embeddings | **Local HuggingFace** `BAAI/bge-small-en-v1.5` (384-dim) via `langchain-huggingface` / `sentence-transformers` |
+| Vector store | Pinecone serverless (`langchain-pinecone`), index `mysetu-ai-hf`, cosine, 384 dims |
 | Reranker | FlashRank cross-encoder (`ms-marco-TinyBERT-L-2-v2`), cached in `backend/.cache/` |
 | Chunking | Custom `SmartSemanticChunker` + `tiktoken` (cl100k_base) + optional RAKE keyword extraction |
 | PDF / DOCX / tabular | PyMuPDF (`fitz`), `python-docx`, `pandas` + `openpyxl` |
@@ -152,7 +153,7 @@ This is the most important subsystem. The streaming path (`POST /query/stream` a
 4. Heading-aware section split (`split_by_headings`) when `##` or ALL-CAPS headings exist.
 5. `SmartSemanticChunker` produces token-bounded chunks (min 100 / target 400 / max 500 tokens, 75-token overlap) with RAKE keywords + per-chunk metadata.
 6. Each chunk's text is **enriched** with a `Title: … | Section: …\nKeywords: …` prefix before embedding so the vector captures document context.
-7. `OllamaEmbeddings` (768-dim) → `PineconeVectorStore.add_documents`. Metadata carries `source: "document"`, `document_id`, `filename`, `section`, `keywords`, etc.
+7. `HuggingFaceEmbeddings` (`bge-small-en-v1.5`, 384-dim) → `PineconeVectorStore.add_documents`. Metadata carries `source: "document"`, `document_id`, `filename`, `section`, `keywords`, etc.
 8. Document metadata persisted to `metadata.json` (this — not Pinecone — drives the document list and counts).
 
 **Database ingestion (`database_connector.py`):** summary-first. For each table/collection it creates **one SUMMARY chunk** (exact row count, schema, "this table contains EXACTLY N rows" facts) plus **DATA chunks** of ~10 rows each. Metadata `source: "database"`. This makes "how many records?" answerable precisely from the summary chunk instead of by counting scattered rows. Connections persisted to `db_connections.json`.
@@ -166,11 +167,11 @@ This is the most important subsystem. The streaming path (`POST /query/stream` a
 6. **Short-circuit:** if nothing survives, return the canned "cannot find" message (no LLM call).
 7. Build a numbered `[SOURCE n: file | Section | Relevance]` context block.
 8. Pick prompt: **summary prompt** for summary intent, otherwise the **strict anti-hallucination prompt**. Both forbid outside knowledge and mandate the refusal phrase.
-9. Generate with Ollama (temp 0.1, `num_ctx=4096` so context isn't truncated, `num_predict` cap, models kept warm via `keep_alive`). Streaming path uses `astream_generate`. The enrichment prefix is stripped from chunk text before it reaches the LLM (`_clean_chunk_text`).
+9. Generate with **Groq** (`ChatGroq`, temp 0.1, `max_tokens` cap). Streaming path uses `astream_generate`. The enrichment prefix is stripped from chunk text before it reaches the LLM (`_clean_chunk_text`).
 10. `_calculate_confidence` blends weighted avg score (40%), best score (20%), query-term coverage in answer (20%), and answer-quality signals (20%).
 11. Sources formatted (`_format_sources`) with page numbers, relevance %, and snippets.
 
-**Tuning knobs live in `config.py`** (`CHUNK_SIZE`, `TOP_K_RETRIEVAL`, `RERANK_TOP_N`, `SIMILARITY_THRESHOLD`, `RERANKING_MODEL`, `OLLAMA_MODEL`, …). Change retrieval behavior there first.
+**Tuning knobs live in `config.py`** (`CHUNK_SIZE`, `TOP_K_RETRIEVAL`, `RERANK_TOP_N`, `SIMILARITY_THRESHOLD`, `RERANKING_MODEL`, `GROQ_MODEL`, `EMBEDDING_MODEL`, …). Change retrieval behavior there first.
 
 ---
 
@@ -180,7 +181,7 @@ Unauthenticated / legacy (mounted in `app.py`):
 | Method | Path | Purpose |
 |---|---|---|
 | GET | `/` | API metadata |
-| GET | `/health` | Ollama up?, vector store?, doc count, db count |
+| GET | `/health` | LLM (Groq) configured?, vector store?, doc count, db count |
 | POST | `/upload` | Upload + process a document |
 | DELETE | `/documents/{doc_id}` | Delete a document + its vectors |
 | GET | `/documents` | List documents |
@@ -231,15 +232,11 @@ Authenticated (`routers/chat.py`, prefix `/api/chat`, requires `Authorization: B
 
 ## 9. Running the project
 
-**Prereqs:** Python 3.10+, Node 18+, Ollama running with `llama3.2:1b` and `nomic-embed-text` pulled, valid Pinecone + Supabase credentials.
+**Prereqs:** Python 3.10+, Node 18+, valid Groq + Pinecone + Supabase credentials. No Ollama needed — generation is Groq (cloud) and embeddings are local HuggingFace (the `bge-small-en-v1.5` model auto-downloads on first run and is cached).
 
 ```powershell
 # One-time setup (Windows)
 ./setup.ps1
-
-# Pull models
-ollama pull llama3.2:1b
-ollama pull nomic-embed-text
 
 # Backend  (serves on http://127.0.0.1:8001)
 cd backend

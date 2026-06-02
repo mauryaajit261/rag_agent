@@ -1,13 +1,1 @@
-{
-  "fc37e4dd-0095-40c4-9045-542ca07fbe83": {
-    "id": "fc37e4dd-0095-40c4-9045-542ca07fbe83",
-    "connection_name": "Registered_database",
-    "db_type": "postgresql",
-    "host": "localhost",
-    "port": 5432,
-    "database": "mysetu_db",
-    "status": "completed",
-    "table_count": 6,
-    "indexed_date": "2026-04-06T13:39:00.892921"
-  }
-}
+{}

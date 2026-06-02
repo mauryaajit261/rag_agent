@@ -13,7 +13,6 @@ import json
 import time
 import asyncio
 from typing import List
-import httpx
 
 from config import settings
 from models import (
@@ -68,25 +67,13 @@ async def health_check():
     """System health check"""
     print("🔔 Health check request received")
     try:
-        # Check Ollama availability using a lighter method (ping the API)
-        ollama_available = False
-        try:
-            # Use async httpx for efficiency
-            async with httpx.AsyncClient() as client:
-                # Increased timeout for slower local hardware
-                response = await client.get(f"{settings.OLLAMA_BASE_URL}/api/tags", timeout=10.0)
-                if response.status_code == 200:
-                    ollama_available = True
-                else:
-                    print(f"⚠️ Ollama returned status {response.status_code}")
-        except Exception as e:
-            print(f"⚠️ Health check ping failed: {type(e).__name__}: {e}")
-            ollama_available = False
-        
+        # LLM availability — Groq is a cloud API; treat as available when a key is configured.
+        llm_available = bool(settings.GROQ_API_KEY)
+
         return HealthResponse(
             status="healthy",
             version=settings.APP_VERSION,
-            ollama_available=ollama_available,
+            ollama_available=llm_available,  # field name kept for frontend compatibility (now = Groq)
             vector_store_initialized=document_processor.vector_store is not None,
             documents_indexed=document_processor.get_document_count(),
             databases_connected=db_connector.get_connection_count()

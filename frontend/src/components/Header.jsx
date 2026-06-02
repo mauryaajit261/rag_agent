@@ -12,7 +12,7 @@ function Header({ systemHealth, session }) {
     const getStatusText = () => {
         if (!systemHealth) return 'Checking...';
         if (systemHealth.status === 'healthy' && systemHealth.ollama_available) return 'System Safe';
-        if (systemHealth.status === 'healthy') return 'System Warning (Ollama)';
+        if (systemHealth.status === 'healthy') return 'System Warning (LLM)';
         return 'System Critical';
     };
 

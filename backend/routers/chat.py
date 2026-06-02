@@ -120,7 +120,7 @@ async def send_message(request: ChatMessageRequest, user=Depends(get_current_use
             )
         else:
             response_text = rag_engine.llm.invoke(context_data["prompt"])
-            # OllamaLLM.invoke() returns a str — guard against Message objects
+            # ChatGroq.invoke() returns an AIMessage — extract .content (guard for str)
             full_answer = response_text.content if hasattr(response_text, 'content') else str(response_text)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"LLM Error: {str(e)}")

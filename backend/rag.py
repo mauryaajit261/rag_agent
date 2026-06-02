@@ -9,7 +9,7 @@ import time
 import uuid
 from typing import List, Tuple, Optional
 
-from langchain_ollama import OllamaLLM
+from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 from langchain_pinecone import PineconeVectorStore
 from flashrank import Ranker, RerankRequest
@@ -22,17 +22,14 @@ class RAGEngine:
     """Precision RAG engine — strictly grounded in Pinecone document vectors"""
 
     def __init__(self, retriever=None):
-        # Initialize LLM — low temperature for factual precision.
-        # num_ctx must be large enough to hold the prompt + ALL retrieved chunks,
-        # otherwise Ollama silently truncates the context and the model hallucinates.
-        self.llm = OllamaLLM(
-            base_url=settings.OLLAMA_BASE_URL,
-            model=settings.OLLAMA_MODEL,
-            temperature=settings.OLLAMA_TEMPERATURE,
-            num_ctx=settings.OLLAMA_NUM_CTX,
-            num_predict=settings.OLLAMA_NUM_PREDICT,
-            num_thread=settings.OLLAMA_NUM_THREAD,
-            keep_alive=settings.OLLAMA_KEEP_ALIVE,
+        # Initialize LLM — Groq cloud inference. Low temperature for factual precision.
+        # ChatGroq is a drop-in for the existing .invoke()/.astream() calls (both
+        # return objects with a .content attribute, already handled downstream).
+        self.llm = ChatGroq(
+            api_key=settings.GROQ_API_KEY,
+            model=settings.GROQ_MODEL,
+            temperature=settings.GROQ_TEMPERATURE,
+            max_tokens=settings.GROQ_MAX_TOKENS,
         )
 
         # Retriever — expected to be a PineconeVectorStore instance
