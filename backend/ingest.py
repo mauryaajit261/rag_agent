@@ -148,6 +148,36 @@ class DocumentProcessor:
         except Exception as e:
             print(f"⚠️ Could not save metadata: {e}")
 
+    # ── Throttled Embedding ──────────────────────────────────────────────
+
+    def add_documents_throttled(self, docs, batch_size: int = 64, max_retries: int = 8):
+        """
+        Add documents to Pinecone in batches, backing off on rate-limit (429) errors.
+
+        Pinecone's hosted embedding model has a per-minute token budget; on the free
+        plan a large upload can exceed it. Instead of failing the whole upload, we
+        embed in batches and, on a 429, wait for the budget to refill and retry.
+        """
+        import time
+        total = len(docs)
+        for start in range(0, total, batch_size):
+            batch = docs[start:start + batch_size]
+            for attempt in range(max_retries):
+                try:
+                    self.vector_store.add_documents(batch)
+                    break
+                except Exception as e:
+                    msg = str(e)
+                    rate_limited = any(s in msg for s in ("429", "RESOURCE_EXHAUSTED", "Too Many Requests"))
+                    if rate_limited and attempt < max_retries - 1:
+                        wait = 60  # per-minute budget — wait a full window to refill
+                        print(f"⏳ Embedding rate limit hit — waiting {wait}s, then resuming "
+                              f"(chunks {start + 1}-{min(start + batch_size, total)} of {total})")
+                        time.sleep(wait)
+                    else:
+                        raise
+            print(f"  ✅ Embedded {min(start + batch_size, total)}/{total} chunks")
+
     # ── Text Extraction ─────────────────────────────────────────────────
 
     def extract_text(self, file_path: Path, file_type: DocumentType) -> str:
@@ -326,7 +356,7 @@ class DocumentProcessor:
                 lc_docs.append(LangChainDocument(page_content=enriched_text, metadata=rc_meta))
 
             if self.vector_store and lc_docs:
-                self.vector_store.add_documents(lc_docs)
+                self.add_documents_throttled(lc_docs)
                 print(f"✅ Indexed {len(lc_docs)} chunks into Pinecone for '{filename}'")
 
             doc_info.chunk_count = len(lc_docs)

@@ -461,7 +461,7 @@ IMPORTANT FACTS:
                 index_name=settings.PINECONE_INDEX_NAME
             )
         else:
-            self.document_processor.vector_store.add_documents(all_chunks)
+            self.document_processor.add_documents_throttled(all_chunks)
         
         print(f"✅ Indexed {table_name}: 1 summary + {len(structured['data_chunks'])} data chunks ({structured['total_rows']} rows)")
     
