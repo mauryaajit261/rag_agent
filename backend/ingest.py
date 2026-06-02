@@ -16,7 +16,6 @@ import fitz  # PyMuPDF
 from docx import Document
 import pandas as pd
 
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.documents import Document as LangChainDocument
 
 from chunker import SmartSemanticChunker
@@ -30,8 +29,8 @@ from models import DocumentType, ProcessingStatus, DocumentInfo
 # Set Pinecone API key as environment variable (required by langchain-pinecone)
 os.environ['PINECONE_API_KEY'] = settings.PINECONE_API_KEY
 
-# Now import langchain-pinecone
-from langchain_pinecone import PineconeVectorStore
+# Now import langchain-pinecone (PineconeEmbeddings uses Pinecone's hosted inference)
+from langchain_pinecone import PineconeVectorStore, PineconeEmbeddings
 
 
 class DocumentProcessor:
@@ -62,11 +61,11 @@ class DocumentProcessor:
         return sections
 
     def __init__(self):
-        # Embeddings — local HuggingFace sentence-transformers (no Ollama, no API key).
-        # normalize_embeddings=True is recommended for BGE models with cosine similarity.
-        self.embeddings = HuggingFaceEmbeddings(
-            model_name=settings.EMBEDDING_MODEL,
-            encode_kwargs={"normalize_embeddings": True},
+        # Embeddings — Pinecone-hosted inference (no local model, no torch → small footprint).
+        # The wrapper sets the e5 query/passage input types automatically.
+        self.embeddings = PineconeEmbeddings(
+            model=settings.EMBEDDING_MODEL,
+            pinecone_api_key=settings.PINECONE_API_KEY,
         )
 
         # Document metadata

@@ -68,8 +68,8 @@ It is branded as **"Setu-Bot"** in prompts and **"mySetu AI / Knowledge Assistan
 | Web framework | FastAPI + Uvicorn |
 | Config | `pydantic-settings` (`config.py`, single `settings` instance) |
 | LLM (generation) | **Groq** cloud inference (`llama-3.3-70b-versatile`) via `langchain-groq` — replaced Ollama |
-| Embeddings | **Local HuggingFace** `BAAI/bge-small-en-v1.5` (384-dim) via `langchain-huggingface` / `sentence-transformers` |
-| Vector store | Pinecone serverless (`langchain-pinecone`), index `mysetu-ai-hf`, cosine, 384 dims |
+| Embeddings | **Pinecone-hosted** `multilingual-e5-large` (1024-dim) via `PineconeEmbeddings` — no torch, free-tier friendly |
+| Vector store | Pinecone serverless (`langchain-pinecone`), index `mysetu-ai-prod`, cosine, 1024 dims |
 | Reranker | FlashRank cross-encoder (`ms-marco-TinyBERT-L-2-v2`), cached in `backend/.cache/` |
 | Chunking | Custom `SmartSemanticChunker` + `tiktoken` (cl100k_base) + optional RAKE keyword extraction |
 | PDF / DOCX / tabular | PyMuPDF (`fitz`), `python-docx`, `pandas` + `openpyxl` |
@@ -153,7 +153,7 @@ This is the most important subsystem. The streaming path (`POST /query/stream` a
 4. Heading-aware section split (`split_by_headings`) when `##` or ALL-CAPS headings exist.
 5. `SmartSemanticChunker` produces token-bounded chunks (min 100 / target 400 / max 500 tokens, 75-token overlap) with RAKE keywords + per-chunk metadata.
 6. Each chunk's text is **enriched** with a `Title: … | Section: …\nKeywords: …` prefix before embedding so the vector captures document context.
-7. `HuggingFaceEmbeddings` (`bge-small-en-v1.5`, 384-dim) → `PineconeVectorStore.add_documents`. Metadata carries `source: "document"`, `document_id`, `filename`, `section`, `keywords`, etc.
+7. `PineconeEmbeddings` (`multilingual-e5-large`, 1024-dim, Pinecone-hosted) → `PineconeVectorStore.add_documents`. Metadata carries `source: "document"`, `document_id`, `filename`, `section`, `keywords`, etc.
 8. Document metadata persisted to `metadata.json` (this — not Pinecone — drives the document list and counts).
 
 **Database ingestion (`database_connector.py`):** summary-first. For each table/collection it creates **one SUMMARY chunk** (exact row count, schema, "this table contains EXACTLY N rows" facts) plus **DATA chunks** of ~10 rows each. Metadata `source: "database"`. This makes "how many records?" answerable precisely from the summary chunk instead of by counting scattered rows. Connections persisted to `db_connections.json`.
@@ -232,7 +232,7 @@ Authenticated (`routers/chat.py`, prefix `/api/chat`, requires `Authorization: B
 
 ## 9. Running the project
 
-**Prereqs:** Python 3.10+, Node 18+, valid Groq + Pinecone + Supabase credentials. No Ollama needed — generation is Groq (cloud) and embeddings are local HuggingFace (the `bge-small-en-v1.5` model auto-downloads on first run and is cached).
+**Prereqs:** Python 3.11 (pinned for deploy via `.python-version`), Node 18+, valid Groq + Pinecone + Supabase credentials. No Ollama, no local ML model — generation is Groq (cloud) and embeddings are Pinecone-hosted (`multilingual-e5-large`). No PyTorch, so the backend is light enough for Render's free tier.
 
 ```powershell
 # One-time setup (Windows)

@@ -31,8 +31,8 @@ class Settings(BaseSettings):
     # Pinecone Configuration
     PINECONE_API_KEY: str                       # loaded from .env
     PINECONE_ENVIRONMENT: str = "us-east-1"  # Will be auto-detected
-    PINECONE_INDEX_NAME: str = "mysetu-ai-hf"   # new index for the 384-dim HF embeddings
-    PINECONE_DIMENSION: int = 384               # BAAI/bge-small-en-v1.5 dimension
+    PINECONE_INDEX_NAME: str = "mysetu-ai-prod"  # 1024-dim index for Pinecone-hosted embeddings
+    PINECONE_DIMENSION: int = 1024               # multilingual-e5-large dimension
 
     # LLM Configuration — Groq (cloud inference, replaces Ollama for generation)
     GROQ_API_KEY: str                            # loaded from .env — never hardcode
@@ -40,8 +40,9 @@ class Settings(BaseSettings):
     GROQ_TEMPERATURE: float = 0.1                # low = factual/precise
     GROQ_MAX_TOKENS: int = 1024                  # cap answer length
 
-    # Embeddings — local HuggingFace sentence-transformers (replaces Ollama nomic-embed-text)
-    EMBEDDING_MODEL: str = "BAAI/bge-small-en-v1.5"  # 384-dim, light, strong retrieval
+    # Embeddings — Pinecone-hosted inference (no torch → fits Render free tier).
+    # multilingual-e5-large is 1024-dim and handles English + Hindi well.
+    EMBEDDING_MODEL: str = "multilingual-e5-large"
     
     # RAG Configuration — Precision-tuned for 90%+ confidence
     CHUNK_SIZE: int = 1000           # Parent doc context size (what the LLM gets)

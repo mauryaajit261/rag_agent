@@ -21,14 +21,14 @@ langchain-experimental>=0.3.0
 groq>=0.11.0
 langchain-groq>=0.2.0
 
-# Vector Store - Pinecone
+# Vector Store + hosted embeddings - Pinecone (PineconeEmbeddings = no torch)
 pinecone-client>=5.0.0
 langchain-pinecone>=0.2.0
 
-# HuggingFace & Machine Learning (local embeddings + reranker)
+# Reranker — FlashRank uses ONNX runtime (lightweight, no torch).
+# NOTE: embeddings are now Pinecone-hosted, so sentence-transformers/torch are NOT needed.
+# This keeps the Render build small enough for the free tier.
 flashrank>=0.2.8
-sentence-transformers>=3.0.0
-langchain-huggingface>=0.1.0
 
 # Database Drivers
 pymysql>=1.1.0
