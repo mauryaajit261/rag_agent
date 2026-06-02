@@ -2,10 +2,6 @@ import { supabase } from './supabaseClient';
 
 // API Configuration
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8001';
-// Token for the external image-analysis API, loaded from frontend/.env.local (gitignored).
-// NOTE: VITE_* values are still embedded in the built client bundle. For true secrecy,
-// proxy the image-analysis call through the FastAPI backend (see the secure-backend skill).
-const IMAGE_API_TOKEN = import.meta.env.VITE_IMAGE_API_TOKEN;
 
 // API Client
 class APIClient {
@@ -208,14 +204,24 @@ class APIClient {
     }
 
     // ── External Image Analysis ── //
+
+    // Get a fresh bearer token for the image API (our backend logs in server-side).
+    async getImageToken() {
+        const data = await this.request('/api/chat/image-token', { method: 'GET' });
+        return data.access_token;
+    }
+
     async analyzeImage(imageUrl, file) {
         const formData = new FormData();
         formData.append('file', file);
 
+        // Fetch a fresh token from our backend, then call the slow analyze API directly.
+        const imageToken = await this.getImageToken();
+
         return this.request(imageUrl, {
             method: 'POST',
             body: formData,
-            customToken: IMAGE_API_TOKEN
+            customToken: imageToken
         });
     }
 

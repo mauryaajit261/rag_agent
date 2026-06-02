@@ -8,7 +8,33 @@ from rag import rag_engine
 from config import settings
 import json
 
+import httpx
+
 router = APIRouter(prefix="/api/chat", tags=["chat"])
+
+
+@router.get("/image-token")
+async def get_image_token(user=Depends(get_current_user)):
+    """
+    Log in to the mySetu image-analysis API (server-side, with stored credentials)
+    and return a fresh bearer token. The frontend then calls the slow analyze
+    endpoint directly with this token, so credentials are never exposed in the browser
+    and the token can't go stale.
+    """
+    try:
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            resp = await client.post(
+                f"{settings.IMAGE_API_BASE_URL}/Swagger_auth/Swagger_auth/login",
+                auth=(settings.IMAGE_API_USERNAME, settings.IMAGE_API_PASSWORD),
+            )
+        resp.raise_for_status()
+        data = resp.json()
+        return {
+            "access_token": data.get("access_token"),
+            "token_type": data.get("token_type", "bearer"),
+        }
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Image API login failed: {e}")
 
 # JWT Verification Dependency
 def get_current_user(authorization: str = Header(None)):

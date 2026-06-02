@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import './ChatInterface.css';
 import api from '../api';
 
-const IMAGE_ANALYSIS_API = 'https://aiuat.mysetu.com/safe_unsafe_analysis/analyze_local';
+const IMAGE_ANALYSIS_API = 'https://ai.mysetu.com/safe_unsafe_analysis/analyze_local';
 
 function ChatInterface({ systemHealth, messages, setMessages, sourceType, setSourceType, checkSystemHealth }) {
     const [input, setInput] = useState('');

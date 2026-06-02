@@ -68,6 +68,12 @@ class Settings(BaseSettings):
     STRICT_CONTEXT_MODE: bool = True
     REQUIRE_SOURCE_ATTRIBUTION: bool = True
 
+    # Image Safety Analysis API (mySetu) — backend logs in to fetch a fresh token.
+    # Override IMAGE_API_PASSWORD via a Render/.env environment variable for security.
+    IMAGE_API_BASE_URL: str = "https://ai.mysetu.com"
+    IMAGE_API_USERNAME: str = "admin"
+    IMAGE_API_PASSWORD: str = "adminnova@123"
+
     # Image Persistence
     SUPABASE_IMAGES_BUCKET: str = "chat-images"
     
